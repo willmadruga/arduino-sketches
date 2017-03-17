@@ -17,9 +17,13 @@
 #define TEST_MODE 0x0F
 
 // the data
-byte w_[8] = {B11000011,B11000011,B11000011,B11011011,B11011011,B11011011,B11111111,B11111111};
-byte i_[8] = {B00011000,B00011000,B00000000,B00011000,B00011000,B00011000,B00011000,B00011000};
-byte l_[8] = {B01100000,B01100000,B01100000,B01100000,B01100000,B01100000,B01111110,B01111110};
+
+//B11000011,B11000011,B11000011,B11011011,B11011011,B11011011,B11111111,B11111111
+byte w[8] = {0xC3, 0xC3, 0xC3, 0xDB, 0xDB, 0xDB, 0xFF, 0xFF};
+//B00011000,B00011000,B00000000,B00011000,B00011000,B00011000,B00011000,B00011000
+byte i[8] = {0x18, 0x18, 0x00, 0x18, 0x18, 0x18, 0x18, 0x18};
+//B01100000,B01100000,B01100000,B01100000,B01100000,B01100000,B01111110,B01111110
+byte l[8] = {0x60, 0x60, 0x60, 0x60, 0x60, 0x60, 0x7E, 0x7E};
 
 void setup() {
 
@@ -56,17 +60,17 @@ void loop() {
 }
 
 void blinkLetters() {
-  sendLetter(w_);
-  sendLetter(i_);
-  sendLetter(l_);
+  sendLetter(w);
+  sendLetter(i);
+  sendLetter(l);
   delay(100);
-  sendLetter(l_);
+  sendLetter(l);
 }
 void animatedLetters() {
-  sendAnimatedLetter(w_);
-  sendAnimatedLetter(i_);
-  sendAnimatedLetter(l_);
-  sendAnimatedLetter(l_);
+  sendAnimatedLetter(w);
+  sendAnimatedLetter(i);
+  sendAnimatedLetter(l);
+  sendAnimatedLetter(l);
 }
 
 void sendLetter(byte data[]) {
