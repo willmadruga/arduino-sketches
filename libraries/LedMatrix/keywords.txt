@@ -1,0 +1,5 @@
+LedMatrix 	 KEYWORD1
+print     	 KEYWORD2
+clear     	 KEYWORD2
+setIntensity KEYWORD2
+initialize   KEYWORD2
