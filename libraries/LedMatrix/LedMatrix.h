@@ -10,6 +10,12 @@
  * 4. print alphanumeric values to the matrix
  * matrix.print(w); // w is already defined in the library.
  *
+ *
+ * TODO:                            
+ * 1. define hex for shapes like these | \ / - _
+ * 2. define constants for letters and digits based on the formation of these shapes
+ * 3. have the whole alphabet and digits available in this library.
+ *
  * Author: William Madruga
  */
 #ifndef LedMatrix_h
