@@ -13,26 +13,26 @@
 #define SHUTDOWN  0x0C
 #define TEST_MODE 0x0F
 
-LedMatrix::LedMatrix(int dataPin, int clockPin, int latchPin) {
+LedMatrix::LedMatrix(unsigned int dataPin, unsigned int clockPin, unsigned int latchPin) {
 
   pinMode(dataPin,  OUTPUT);
   pinMode(clockPin,  OUTPUT);
   pinMode(latchPin, OUTPUT);
-  
+
   _data  = dataPin;
   _clock = clockPin;
   _latch = latchPin;
 
 	// I wanted the initialize() block to run here
 	// but it's not happening... I need to understand why, later...
-  
+
 }
 
 void LedMatrix::initialize() {
 
   // starts with low intensity - ranges from 0x00 (min) to 0x0F (max)
   sendByte(INTENSITY, 0x00);
- 
+
   // setting decode mode to Code B all digits.
   // only the first nibble of data (digit registers D0-D3) will be used.
   // sendByte(DECODE, 0x0F);
@@ -65,26 +65,40 @@ void LedMatrix::clear() {
   }
 }
 
-void LedMatrix::setIntensity(int code) {
-  if(code >= 0 && code <= 15) {
-    // TODO:
-    // convert from DEC to HEX
-    // sendByte(INTENSITY, code);
+void LedMatrix::setIntensity(unsigned int code) {
+  if(code >= 0 && code <= 9) {
+    sendByte(INTENSITY, code);
+  } else if (code >=10 && code <= 15) {
+    switch (code) {
+      case 10: sendByte(INTENSITY, 0x0A);
+               break;
+      case 11: sendByte(INTENSITY, 0x0B);
+               break;
+      case 12: sendByte(INTENSITY, 0x0C);
+               break;
+      case 13: sendByte(INTENSITY, 0x0D);
+               break;
+      case 14: sendByte(INTENSITY, 0x0E);
+               break;
+      case 15: sendByte(INTENSITY, 0x0F);
+               break;
+      default:
+               break;
+    }
   }
 }
 
-void LedMatrix::sendByte(int address, byte data) {
-  
+void LedMatrix::sendByte(unsigned int address, byte data) {
+
   // matrix configuration
   shiftOut(_data, _clock, MSBFIRST, address);
 
   // send data
   shiftOut(_data, _clock, MSBFIRST, data);
-  
+
   // flush it out to led matrix
   digitalWrite(_latch, LOW);
   digitalWrite(_latch, HIGH);
   digitalWrite(_latch, LOW);
 
 }
-
